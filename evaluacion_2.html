@@ -1,0 +1,48 @@
+<script>
+const encuesta = [
+  { pregunta: "Pregunta 1: ¿Cuál es la capital de Francia?", valor: 20 },
+  { pregunta: "Pregunta 2: ¿Quien Descubrio América?", valor: 30 },
+  { pregunta: "Pregunta 3: ¿Cuál es la fórmula química del agua?", valor: 40 },
+  { pregunta: "Pregunta 4: ¿Quién escribió 'Romeo y Julieta'?", valor: 50 },
+  { pregunta: "Pregunta 5: ¿Cuál es el planeta más grande del sistema solar?", valor: 30 },
+  { pregunta: "Pregunta 6: ¿Qué año se fundó la ONU?", valor: 20 },
+  { pregunta: "Pregunta 7: ¿Quién pintó la 'Mona Lisa'?", valor: 50},
+  { pregunta: "Pregunta 8: ¿Cuál es el número atómico del hidrógeno?", valor: 40 },
+  { pregunta: "Pregunta 9: ¿En qué año se produjo la Revolución Rusa?", valor: 40 },
+  { pregunta: "Pregunta 10: ¿Quién fue el primer presidente de los Estados Unidos?", valor: 50 },
+];
+
+// Función para realizar la encuesta
+function realizarEncuesta() {
+  let puntajeTotal = 0;
+
+  for (let i = 0; i < encuesta.length; i++) {
+    const respuesta = prompt(encuesta[i].pregunta);
+    const valorRespuesta = parseInt(respuesta);
+
+    if (!isNaN(valorRespuesta)) {
+      puntajeTotal += valorRespuesta;
+    }
+  }
+
+  // Calcular el rango de conocimiento
+  let rango = "";
+  if (puntajeTotal >= 10 && puntajeTotal <= 20) {
+    rango = "Principiante en el tema";
+  } else if (puntajeTotal >= 21 && puntajeTotal <= 40) {
+    rango = "Aficionado en el tema";
+  } else if (puntajeTotal >= 41 && puntajeTotal <= 70) {
+    rango = "Junior en el tema";
+  } else if (puntajeTotal >= 71 && puntajeTotal <= 100) {
+    rango = "Experto en el tema";
+  } else {
+    rango = "Puntaje no válido";
+  }
+
+  alert(`Tu puntaje total es: ${puntajeTotal}. ${rango}`);
+}
+
+// Iniciar la encuesta
+realizarEncuesta();
+
+</script>

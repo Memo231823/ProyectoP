@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Asistencia de Alumnos</h1>
+    <script>
+        let asistencias = 0;
+        let inasistencias = 0;
+
+        do {
+            const numAlumnos = parseInt(prompt("Ingrese el número de alumnos:"));
+
+            if (!isNaN(numAlumnos) && numAlumnos > 0) {
+                const alumnos = [];
+
+                for (let i = 0; i < numAlumnos; i++) {
+                    const nombre = prompt(`Nombre del alumno ${i + 1}:`);
+                    let asistencia;
+
+                    do {
+                        asistencia = prompt(`¿${nombre} asistió? (Si/No)`).toLowerCase();
+                    } while (asistencia !== "si" && asistencia !== "no");
+
+                    if (asistencia === "si") {
+                        asistencias++;
+                    } else {
+                        inasistencias++;
+                    }
+
+                    alumnos.push({ nombre, asistencia });
+                }
+
+                /* Imprime en consola las asistencias */
+                console.log(`Asistencias: ${asistencias}`);
+                console.log(`Inasistencias: ${inasistencias}`);
+
+
+                const continuar = prompt("¿Desea registrar más asistencias? (Si/No)").toLowerCase();
+                if (continuar !== "si") {
+                    break;
+                }
+            } else {
+                alert("Por favor, ingrese un número válido de alumnos.");
+            }
+        } while (true);
+    </script>
