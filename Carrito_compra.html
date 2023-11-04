@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/carrito.js"></script>
+    <title>Carrito de Compra</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <th>Descripción del Producto</th>
+            <th>Cantidad</th>
+            <th>Importe</th>
+            <th>Total</th>
+        </thead>
+        <tr>
+            <td><input type="text"></td>
+            <td><input type="number"></td>
+            <td><input type="number"></td>
+            <td class="subtotal">0.00</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td class="text">Subtotal<br>IVA 16%<br><span class="bold">Total</span></td>
+            <td class="text">
+                <div class="base">0.00</div>
+                <div class="iva">0.00</div>
+                <div class="total bold">0.00</div>
+            </td>
+        </tr>
+    </table>
+    <script>
+        // generar la funcion de los eventos 
+        const newEvents = () =>{
+            document.querySelectorAll("input").forEach(fl =>{
+                fl.removeEventListener("keyup",calcularFila);
+                fl.addEventListener("keyup",calcularFila);
+            });
+        };
+        newEvents();
+        // inicia la programacion de javascript
+        // generar la funcion para calcular el subtotal de la fila 
+        // este se ejecutara cada vez que se coloque el focus un input
+        function calcularFila(){
+            const tr=this.closet("tr");
+            const num=tr.querySelectorAll("input[type=number]");
+            tr.querySelector(".subtotal").innerText=(parseFloat(num[0].value)*parseFloat(num[1].value) || 0).toFixed(2);
+            calcularAll();
+            nuevaFila();
+        }
+        // generar la funcion calcular total 
+        function calcularAll(){
+            const suma=[...document.querySelectorAll(".subtotal")].reduce((acum,fl) => acum+parseFloat(fl.innerText),0);
+            document.querySelector(".base").innerText=suma.toFixed(2);
+            document.querySelector(".iva").innerText=(suma*.16).toFixed(2);
+            document.querySelector(".total").innerText=((suma*.16)+suma).toFixed(2);
+        }
+        // funcion para revisar si hay nueva fila 
+        function nuevaFila(){
+            const tr=document.querySelectorAll("tr");
+            const ultimaFila=tr[tr.length-2];
+            const vacio=[...ultimaFila.querySelectorAll("input")].every(fl =>fl.value=="");
+            if(vacio==false){
+                ultimaFila.insertAdjacentElement('afterend',createTr());
+                newEvents();
+            }
+        }
+        // crear la funcion de nueva fila dentro de la tabla 
+        function crearTr(){
+            const td1 = document.createElement("td");
+            const input1 = document.createElement("input");
+            input1.type = "text";
+            td1.appendChild(input1);
+
+            const td2 = document.createElement("td");
+            const input2 = document.createElement("input");
+            input2.type="number";
+            td2.appendChild(input2);
+
+            const td3 = document.createElement("td");
+            const input3 = document.createElement("input");
+            input3.type="number";
+            td3.appendChild(input3);
+
+            const td4 = document.createElement("td");
+            td4.classList.add("subtotal");
+            td4.innerHTML="0.00";
+
+            const tr=document.createElement("tr");
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            tr.appendChild(td3);
+            tr.appendChild(td4);
+
+            return tr;
+        }
+
+    </script>
+</body>
+</html>

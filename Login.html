@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | JavaScript</title>
+</head>
+<body>
+    <h2>Iniciar Sesión</h2>
+    <div id="form-login">
+        <label for="usuario">Usuario</label>
+        <input type="text" id="username" required>
+        <label for="password">Password</label>
+        <input type="password" id="password" required>
+        <button type="submit" onclick="leer()">Iniciar Sesion</button>
+    </div>
+    <p id="mensaje"></p>
+    <script>
+        //generar los nombres de usuarios y password
+        const usuarios = [
+            {username: "Guillermo", password: "clave1"},
+            {username: "Angel", password: "clave2"},
+            {username: "Mario", password: "clave3"},
+            {username: "Ricardo", password: "clave4"},
+        ];
+        //generar un contador me de 3 intentos para salir del aplicativo
+        let intentosLogin = 3;
+        function leer() {
+            const usernameTxt = document.getElementById("username").value;
+            const passwordTxt = document.getElementById("password").value;
+            //validar que los campos usuarios y password no esten vacios
+            if (usernameTxt === "" || passwordTxt === "") {
+                    document.getElementById("mensaje").innerHTML = "Los Campos estan vacios";
+                    return
+                }
+            for(const usuario of usuarios){
+                if (usuario.username == usernameTxt && usuario.password == passwordTxt) {
+                        document.getElementById("mensaje").innerHTML = "Bienvenido";
+                        document.getElementById("form-login").style.display = "none";
+                        break;
+                    }
+            }   
+            intentosLogin --;
+                if (intentosLogin > 0) {
+                    document.getElementById("mensaje").innerHTML = "Usuario y contraseña no válidos. Intentos restantes: "  + intentosLogin;
+                }else{
+                    document.getElementById("mensaje").innerHTML = "Has llegado a los 3 intentos la aplicacion se cerrera " + intentosLogin;
+                    document.getElementById("form-login").style.display = "none";
+                    setTimeout((funtion) => {
+                        window.close ();
+                    }, 2000);
+
+                }
+        }
+    </script>
+</body>
+</html>
